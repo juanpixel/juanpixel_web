@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+/* Restablece los márgenes y el relleno para todos los elementos */
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Restablece el tamaño de fuente */
+  html {
+    font-size: 16px;
+  }
+  
+  /* Restablece los estilos de los encabezados */
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Restablece el estilo de los enlaces */
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  /* Restablece el estilo de las imágenes */
+  img {
+    display: block;
+    max-width: 100%;
+  }
+  
+  /* Restablece el estilo de las listas */
+  ul, ol {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Restablece el estilo de los botones */
+  button {
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    font-size: inherit;
+  }
+  
+:root{
+   --black: #222222;
+   --white: #EBEBEB;
+
+   /* dark-mode */
+   --Green-Primary-DarckMode: #1AD11A;
+   --Green-Secundary-DarckMode: #0F780F;
+   --Green-Terciary-DarkMode: #C2F7C2;
+   --Grey--DarkMode:#363636;
+
+  /* Fonts */
+  --h1-Size: 40px;
+  --h2-Size: 35px;
+  --h3-Size: 25px;
+  --p-Size: 16px;
+  --Tiny: 12px;
+
+  /* spacing */
+
+  --Radio: 8px;
+  --xs: 4px;
+  --s: 8px;
+  --m: 12px;
+  --l:24px;
+  --xl:48px;
+  --xxl: 144px;
+}
+
+
+
+body{
+    background: var(--black);
+    color: var(--white);
+    font-family: "Roboto Mono", monospace;
+    display: flex;
+    justify-content: center;
+}
+
+h1{
+    font-size: var(--h1-Size);
+}
+
+h2{
+    font-size: var(--h2-Size);
+    font-weight: 400;
+}
+h3{
+    font-size: var(--h3-Size);
+    font-weight: 400;
+}
+
+p{
+    font-size: var(--p-Size);
+    font-weight: 400;
+    line-height: 150%;
+}
+
+.tiny{
+    font-size: var(--Tiny);
+    color: var(--Green-Terciary-DarkMode);
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 0 24px;
+}
+
+header{
+    height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    & aside{
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--m);
+    }
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    gap: var(--m);
+    margin-bottom: var(--xxl);
+
+}
+
+.about{
+    max-width: 500px;
+}
+
+.about h3{
+    color: var(--Green-Terciary-DarkMode);
+}
+
+.botones{
+    width: 100%;
+    display: flex;
+    gap: var(--m);
+}
+
+.btn{
+    text-align: center;
+    min-width: 150px;
+    max-width: 180px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: var(--Radio);
+}
+
+.primary-dark{
+    color: var(--black);
+    border: 1px solid var(--Green-Primary-DarckMode);
+    background: var(--Green-Primary-DarckMode);
+
+    &:hover{
+        background-color: var(--Green-Secundary-DarckMode);
+        border-color: var(--Green-Secundary-DarckMode);
+    }
+}
+
+.secundary-dark{
+    color: var(--white);
+    background: var(--black);
+    border: 1px solid var(--Green-Primary-DarckMode);
+
+    &:hover{
+        background-color: var(--Green-Primary-DarckMode);
+        color: var(--black);
+    }
+}
+
+.experiencia{
+    display: flex;
+    flex-direction: column;
+    gap: var(--m);
+}
+
+.experiencia-item{
+    display: flex;
+    gap: var(--l);
+
+    & .item-detail{
+        width: 44px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--m);
+
+        & .circle{
+            width: 20px;
+            height: 20px;
+            background-color: var(--Green-Primary-DarckMode);
+            border-radius: 50%;
+        }
+
+        & .linea{
+            background-color: var(--Green-Terciary-DarkMode);
+            width: 3px;
+            height: 100%;  
+        }
+    }
+
+    & .item-titles{
+        width: 30%;
+    }
+
+    & .item-descripcion{
+        max-width: 60%;
+    }
+}
+
+.descripcion-badges{
+    margin: var(--m) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.badges{
+    padding: 4px 8px;
+    color: var(--Green-Primary-DarckMode);
+    background: var(--Grey--DarkMode);
+    border-radius: var(--Radio);
+}
+
+
+
+@media (max-width: 600px) {
+    header{
+        flex-direction: column-reverse;
+        justify-content: start;
+
+    }
+
+    header figure img{
+        margin-top: var(--xl);
+        margin-bottom: var(--xl);
+    }
+
+    .experiencia-item{
+        flex-direction: column;
+        margin-bottom: var(--l);
+        border-bottom: 3px solid var(--Green-Terciary-DarkMode);
+
+        & .item-detail{
+            display: none;
+        }
+
+        & .item-descripcion{
+            max-width: 100%;
+        }
+    }
+}
+
+
+
+
