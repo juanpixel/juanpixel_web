@@ -236,6 +236,24 @@ section{
     border-radius: var(--Radio);
 }
 
+.tecnologias{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    gap: 24px 100px;
+
+    & figure{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: var(--s);
+        align-items: center;
+        padding: var(--s);
+        width: 121px;
+    }
+}
+
 
 
 @media (max-width: 600px) {
@@ -262,6 +280,11 @@ section{
         & .item-descripcion{
             max-width: 100%;
         }
+    }
+
+    .tecnologias{
+        justify-content: space-around;
+        gap: 12px 50px;
     }
 }
 
