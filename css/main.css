@@ -277,6 +277,10 @@ section{
             display: none;
         }
 
+        & .item-titles{
+            width: 100%;
+        }
+
         & .item-descripcion{
             max-width: 100%;
         }
