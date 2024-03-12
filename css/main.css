@@ -178,6 +178,7 @@ main{
 }
 
 header{
+    min-height: 700px;
     height: 100vh;
     box-sizing: border-box;
     display: flex;
@@ -215,6 +216,11 @@ section{
     gap: var(--m);
 }
 
+.botones-icono{
+    display: flex;
+    gap: var(--m);
+}
+
 .btn{
     text-align: center;
     min-width: 150px;
@@ -222,6 +228,10 @@ section{
     padding: 10px;
     cursor: pointer;
     border-radius: var(--Radio);
+}
+
+.btn_icon:hover svg{
+    fill: var(--Green-Primary-DarckMode) !important;
 }
 
 .primary-dark{
@@ -318,9 +328,31 @@ section{
     }
 }
 
+.proyectos{
+    display: flex;
+    gap: var(--m);
+
+    & img{
+        width: 50%;
+        aspect-ratio: 16/9;
+        border-radius: var(--Radio);
+    }
+
+    & .info{
+        display: flex;
+        flex-direction: column;
+        gap: var(--m);
+    }
+}
+
 
 
 @media (max-width: 600px) {
+
+    nav{
+        display: none;
+    }
+
     header{
         flex-direction: column-reverse;
         justify-content: start;
@@ -353,6 +385,25 @@ section{
     .tecnologias{
         justify-content: space-around;
         gap: 12px 50px;
+    }
+
+    .proyectos{
+        flex-direction: column;
+    
+        & img{
+            width: 100%;
+        }
+    
+    }
+
+    .botones{
+        flex-direction: column;
+    }
+    .botones-icono{
+        justify-content: center;
+    }
+    .btn{
+        max-width: 100%;
     }
 }
 
