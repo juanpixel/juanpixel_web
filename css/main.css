@@ -178,7 +178,6 @@ main{
 }
 
 header{
-    min-height: 700px;
     height: 100vh;
     box-sizing: border-box;
     display: flex;
@@ -345,6 +344,12 @@ section{
     }
 }
 
+.contacto{
+    display: flex;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
 
 
 @media (max-width: 600px) {
@@ -354,13 +359,21 @@ section{
     }
 
     header{
+        height: auto;
         flex-direction: column-reverse;
         justify-content: start;
+        margin-bottom: var(--xl);
 
     }
 
     header figure img{
         margin-top: var(--xl);
+        margin-bottom: var(--xl);
+        max-width: 200px;
+    }
+
+    section{
+        padding-top: 0;
         margin-bottom: var(--xl);
     }
 
