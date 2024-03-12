@@ -44,6 +44,10 @@
     background: none;
     font-size: inherit;
   }
+
+html{
+    scroll-behavior: smooth;
+}
   
 :root{
    --black: #222222;
@@ -107,6 +111,65 @@ p{
     color: var(--Green-Terciary-DarkMode);
 }
 
+svg{
+    fill: var(--white)
+}
+
+nav{
+    z-index: 999;
+    position: fixed;
+    box-sizing: border-box;
+    margin: 15px auto;
+
+    & ul{
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        padding: 4px;
+        background: var(--Grey--DarkMode);
+        border-radius: 100px;
+
+        & .icon{
+            width: 26px;
+
+            & a{
+                padding: 0;
+            }
+        }
+
+        & li{
+            border-radius: 17px;
+            font-size: var(--Tiny);
+            height: 26px;
+            display: grid;
+            place-items: center;
+
+
+            & svg{
+                fill: var(--white);
+            }
+
+            &:hover{
+                background-color: var(--Green-Terciary-DarkMode);
+                color: var(--black);
+
+                & svg{
+                    fill: var(--black);
+                }
+            }
+
+            & a{
+                padding: 4px 16px;
+                display: grid;
+                place-items: center;
+                
+            }
+        }
+    }
+
+}
+
+
 main{
     display: flex;
     flex-direction: column;
@@ -132,6 +195,7 @@ header{
 section{
     display: flex;
     flex-direction: column;
+    padding-top: 100px;
     gap: var(--m);
     margin-bottom: var(--xxl);
 
