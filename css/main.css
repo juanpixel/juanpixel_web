@@ -330,6 +330,7 @@ section{
 .proyectos{
     display: flex;
     gap: var(--m);
+    margin-bottom: var(--m);
 
     & img{
         width: 50%;
