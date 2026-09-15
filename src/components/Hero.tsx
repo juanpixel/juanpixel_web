@@ -1,4 +1,6 @@
-import { hero } from '../data/portfolio'
+import { locale, portfolioTranslations } from '../data/portfolio'
+
+const { hero } = portfolioTranslations[locale]
 
 export function Hero() {
   return (

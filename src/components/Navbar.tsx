@@ -1,4 +1,6 @@
-import { navigation } from '../data/portfolio'
+import { locale, portfolioTranslations } from '../data/portfolio'
+
+const { navigation } = portfolioTranslations[locale]
 
 export function Navbar() {
   return (

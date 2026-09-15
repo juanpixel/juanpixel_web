@@ -1,5 +1,7 @@
-import { projects } from '../data/portfolio'
+import { locale, portfolioTranslations } from '../data/portfolio'
 import { ProjectCard } from './ProjectCard'
+
+const { projects } = portfolioTranslations[locale]
 
 export function Projects() {
   return (

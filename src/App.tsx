@@ -10,15 +10,17 @@ import { Contact } from './components/Contact'
 function App() {
   return (
     <div className="portfolio-shell">
-      <Navbar />
-      <main className="page-content">
-        <Hero />
-        <About />
-        <Experience />
-        <Tools />
-        <Projects />
-        <Contact />
-      </main>
+      <div className="hero-shell">
+        <Navbar />
+        <main className="page-content">
+          <Hero />
+          <About />
+          <Experience />
+          <Tools />
+          <Projects />
+          <Contact />
+        </main>
+      </div>
     </div>
   )
 }

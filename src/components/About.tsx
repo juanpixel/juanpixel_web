@@ -1,4 +1,6 @@
-import { about } from '../data/portfolio'
+import { locale, portfolioTranslations } from '../data/portfolio'
+
+const { about } = portfolioTranslations[locale]
 
 export function About() {
   return (
