@@ -1,4 +1,6 @@
-import { contact } from '../data/portfolio'
+import { locale, portfolioTranslations } from '../data/portfolio'
+
+const { contact } = portfolioTranslations[locale]
 
 export function Contact() {
   return (

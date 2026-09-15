@@ -1,4 +1,6 @@
-import { tools } from '../data/portfolio'
+import { locale, portfolioTranslations } from '../data/portfolio'
+
+const { tools } = portfolioTranslations[locale]
 
 export function Tools() {
   return (

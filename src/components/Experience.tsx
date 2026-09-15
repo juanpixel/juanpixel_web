@@ -1,4 +1,6 @@
-import { experiences } from '../data/portfolio'
+import { locale, portfolioTranslations } from '../data/portfolio'
+
+const { experiences } = portfolioTranslations[locale]
 
 export function Experience() {
   return (
@@ -20,6 +22,14 @@ export function Experience() {
 
             <div className="experience-item__description">
               <p>{item.description}</p>
+
+              {item.clients && (
+                <div className="experience-item__clients">
+                  <span className="clients-label">Clients</span>
+                  <p>{item.clients.join(' • ')}</p>
+                </div>
+              )}
+
               <div className="badges">
                 {item.tags.map((tag) => (
                   <span key={tag} className="badge">
