@@ -10,6 +10,9 @@
   --grey-soft: #e4eed8;
   --grey-deep: #2a3320;
   --shadow-soft: rgba(17, 17, 17, 0.14);
+  --nav-gap: 24px;
+  --nav-height: 52px;
+  --content-offset: calc(var(--nav-height) + var(--nav-gap));
 
   font-family: 'MuseoModerno', sans-serif;
   line-height: 1.5;
