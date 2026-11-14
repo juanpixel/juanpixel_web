@@ -1,6 +1,7 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import type { Locale } from '../data/portfolio'
 import { useLocale } from '../i18n/locale-context'
+import { useScrolledPast } from '../hooks/useScrolledPast'
 
 const languages: { code: Locale; short: string; name: string }[] = [
   { code: 'en', short: 'EN', name: 'English' },
@@ -98,20 +99,53 @@ function LanguageMenu() {
   )
 }
 
+// Padding horizontal de la píldora (estado A) a cada lado de la lista de enlaces.
+const PILL_PADDING = 12
+
 export function Navbar() {
   const { content } = useLocale()
-  const { navigation, ui } = content
+  const { navigation, ui, hero } = content
+  const docked = useScrolledPast('#home', 0.3)
+  const barRef = useRef<HTMLDivElement>(null)
+  const listRef = useRef<HTMLUListElement>(null)
+
+  // El ancho "auto" no se puede animar, así que medimos la lista de enlaces y
+  // lo guardamos en --pill-w. La animación va de ese ancho al 100%.
+  useLayoutEffect(() => {
+    const bar = barRef.current
+    const list = listRef.current
+    if (!bar || !list) return
+
+    const update = () => {
+      bar.style.setProperty('--pill-w', `${list.offsetWidth + PILL_PADDING * 2}px`)
+    }
+    update()
+
+    const observer = new ResizeObserver(update)
+    observer.observe(list)
+    return () => observer.disconnect()
+  }, [])
 
   return (
-    <nav className="topbar" aria-label={ui.navLabel}>
-      <ul className="topbar__list">
-        {navigation.map((item) => (
-          <li key={item.href}>
-            <a href={item.href}>{item.label}</a>
-          </li>
-        ))}
-        <LanguageMenu />
-      </ul>
+    <nav className={`topbar${docked ? ' topbar--docked' : ''}`} aria-label={ui.navLabel}>
+      <div ref={barRef} className="topbar__bar">
+        <a
+          className="topbar__logo"
+          href="#home"
+          tabIndex={docked ? undefined : -1}
+          aria-hidden={docked ? undefined : true}
+        >
+          {hero.name}
+        </a>
+        <ul ref={listRef} className="topbar__list">
+          {navigation.map((item) => (
+            <li key={item.href}>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))}
+          <LanguageMenu />
+        </ul>
+      </div>
     </nav>
   )
 }
