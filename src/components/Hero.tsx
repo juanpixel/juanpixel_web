@@ -1,12 +1,15 @@
 import { useRef, type PointerEvent } from 'react'
 import { useLocale } from '../i18n/locale-context'
 import portrait from '../assets/juanpixel.png'
+import { downloadCvMarkdown, downloadCvPdf } from '../lib/cv'
+import { Dropdown } from './ui/Dropdown'
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 export function Hero() {
-  const { hero, ui } = useLocale().content
+  const { content, locale } = useLocale()
+  const { hero, ui } = content
   const avatarRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef<number | null>(null)
 
@@ -38,14 +41,36 @@ export function Hero() {
         <p className="eyebrow">{hero.eyebrow}</p>
         <h1>{hero.name}</h1>
         <h3>{hero.role}</h3>
-        <div className="actions">
+        <div className="actions" data-print="hide">
           <a className="btn btn--primary" href="#about">{hero.cta}</a>
+          <Dropdown
+            className="cv-download"
+            triggerClassName="btn btn--outline"
+            trigger={ui.cvButton}
+            menuLabel={ui.cvMenuLabel}
+            items={[
+              {
+                id: 'pdf',
+                label: ui.cvPdf,
+                hint: ui.cvPdfHint,
+                badge: '.PDF',
+                onSelect: () => downloadCvPdf(locale),
+              },
+              {
+                id: 'md',
+                label: ui.cvMarkdown,
+                hint: ui.cvMarkdownHint,
+                badge: '.MD',
+                onSelect: () => downloadCvMarkdown(content, locale),
+              },
+            ]}
+          />
         </div>
       </aside>
 
       <figure className="hero__figure">
         <div ref={avatarRef} className="avatar">
-          <div className="radar" aria-hidden="true">
+          <div className="radar" aria-hidden="true" data-print="hide">
             <span className="radar__sweep" />
             <span className="radar__ring" />
             <span className="radar__ring" />

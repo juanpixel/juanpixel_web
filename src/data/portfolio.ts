@@ -100,7 +100,7 @@ export const projects = [
     preview: 'https://glitchrun-beta.vercel.app/',
     github: 'https://github.com/juanpixel/glitchrun',
     image:
-      'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1511512578047-dfb367046420?fm=jpg&fit=crop&w=800&q=70',
   },
   {
     title: 'Knowledge Base II · Bancolombia',
@@ -109,7 +109,7 @@ export const projects = [
     preview: '#',
     github: '#',
     image:
-      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1554224155-6726b3ff858f?fm=jpg&fit=crop&w=800&q=70',
   },
   {
     title: 'ORBIT',
@@ -118,25 +118,70 @@ export const projects = [
     preview: '#',
     github: '#',
     image:
-      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?fm=jpg&fit=crop&w=800&q=70',
   },
 ]
+
+// Datos que no cambian con el idioma
+export const profile = {
+  fullName: 'Juan Pablo Muñoz Rozo',
+  links: [
+    { label: 'Website', url: 'https://juanpixel.dev' },
+    { label: 'LinkedIn', url: 'https://linkedin.com/in/juanpablomunoz' },
+    { label: 'GitHub', url: 'https://github.com/juanpixel' },
+    { label: 'Behance', url: 'https://behance.net/juanpablomunoz' },
+  ],
+}
 
 export const contact = {
   text: 'Available for product design, design engineering, and AI-driven product collaborations. Based in Colombia (UTC-5), remote or hybrid.',
   email: 'hello@juanpixel.dev',
+  location: 'Colombia (UTC-5) · Remote or hybrid',
 }
+
+export const education = [
+  { title: 'Industrial Designer', institution: 'Universidad Icesi, Cali' },
+  {
+    title: 'Diploma in Strategy and Leadership for Digital Transformation',
+    institution: 'Universidad Sergio Arboleda',
+    year: '2026',
+  },
+  { title: 'AI for UXers (Design Engineering)', institution: 'Interface School', year: '2026' },
+  { title: 'Design Systems + AI', institution: 'Interface School', year: '2026' },
+  { title: 'AI Fluency: Framework & Foundations', institution: 'Anthropic' },
+  {
+    title: '130+ courses',
+    institution: 'Platzi',
+    detail:
+      'Paths in front-end design, design systems, and product design. Recent: Software Architecture Fundamentals, Prompt Engineering, Accessibility and Inclusive Design, Ethics in UX Research, Supabase.',
+  },
+]
+
+export const languages = [
+  { name: 'Spanish', level: 'Native' },
+  { name: 'English', level: 'B2' },
+]
 
 export const ui = {
   navLabel: 'Main navigation',
   languageLabel: 'Language',
   experienceTitle: 'Experience',
   clientsLabel: 'Clients',
+  educationTitle: 'Education',
+  certificationsLabel: 'Education & certifications',
+  languagesLabel: 'Languages',
   toolsTitle: 'Tools',
   projectsTitle: 'Projects',
   previewLabel: 'Preview',
+  codeLabel: 'Code',
   contactTitle: 'Contact',
   portraitLabel: 'Portrait of Juan Muñoz',
+  cvButton: 'Download CV',
+  cvMenuLabel: 'CV download format',
+  cvMarkdown: 'Markdown',
+  cvMarkdownHint: 'Plain text · ideal for ATS and AI tools',
+  cvPdf: 'PDF',
+  cvPdfHint: 'Same design as this site',
 }
 
 export type Locale = 'en' | 'es'
@@ -150,6 +195,8 @@ export const portfolioTranslations = {
     hero,
     about,
     experiences,
+    education,
+    languages,
     tools,
     projects,
     contact,
@@ -160,11 +207,21 @@ export const portfolioTranslations = {
       languageLabel: 'Idioma',
       experienceTitle: 'Experiencia',
       clientsLabel: 'Clientes',
+      educationTitle: 'Formación',
+      certificationsLabel: 'Formación y certificaciones',
+      languagesLabel: 'Idiomas',
       toolsTitle: 'Herramientas',
       projectsTitle: 'Proyectos',
       previewLabel: 'Ver demo',
+      codeLabel: 'Código',
       contactTitle: 'Contacto',
       portraitLabel: 'Retrato de Juan Muñoz',
+      cvButton: 'Descargar CV',
+      cvMenuLabel: 'Formato de descarga del CV',
+      cvMarkdown: 'Markdown',
+      cvMarkdownHint: 'Texto plano · ideal para ATS y herramientas de IA',
+      cvPdf: 'PDF',
+      cvPdfHint: 'Con el mismo diseño de este sitio',
     },
     navigation: [
       { label: 'Sobre mí', href: '#about' },
@@ -237,7 +294,7 @@ export const portfolioTranslations = {
         preview: 'https://glitchrun-beta.vercel.app/',
         github: 'https://github.com/juanpixel/glitchrun',
         image:
-          'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1511512578047-dfb367046420?fm=jpg&fit=crop&w=800&q=70',
       },
       {
         title: 'Base de Conocimiento II · Bancolombia',
@@ -246,7 +303,7 @@ export const portfolioTranslations = {
         preview: '#',
         github: '#',
         image:
-          'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1554224155-6726b3ff858f?fm=jpg&fit=crop&w=800&q=70',
       },
       {
         title: 'ORBIT',
@@ -255,12 +312,34 @@ export const portfolioTranslations = {
         preview: '#',
         github: '#',
         image:
-          'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
+          'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?fm=jpg&fit=crop&w=800&q=70',
       },
     ],
     contact: {
       text: 'Disponible para diseño de producto, ingeniería de diseño y colaboraciones con IA. Desde Colombia (UTC-5), en remoto o híbrido.',
       email: 'hello@juanpixel.dev',
+      location: 'Colombia (UTC-5) · Remoto o híbrido',
     },
+    education: [
+      { title: 'Diseñador Industrial', institution: 'Universidad Icesi, Cali' },
+      {
+        title: 'Diplomado en Estrategia y Dirección para la Transformación Digital',
+        institution: 'Universidad Sergio Arboleda',
+        year: '2026',
+      },
+      { title: 'IA para UXers (Design Engineering)', institution: 'Interface School', year: '2026' },
+      { title: 'Design Systems + AI', institution: 'Interface School', year: '2026' },
+      { title: 'AI Fluency: Framework & Foundations', institution: 'Anthropic' },
+      {
+        title: 'Más de 130 cursos',
+        institution: 'Platzi',
+        detail:
+          'Rutas en diseño front-end, sistemas de diseño y diseño de producto. Recientes: Fundamentos de Arquitectura de Software, Prompt Engineering, Accesibilidad y Diseño Inclusivo, Ética en el UX Research, Supabase.',
+      },
+    ],
+    languages: [
+      { name: 'Español', level: 'Nativo' },
+      { name: 'Inglés', level: 'B2' },
+    ],
   },
 }

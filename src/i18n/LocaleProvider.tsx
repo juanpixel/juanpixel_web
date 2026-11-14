@@ -4,10 +4,16 @@ import { LocaleContext } from './locale-context'
 
 const STORAGE_KEY = 'juanpixel-locale'
 
+const isLocale = (value: string | null): value is Locale => value === 'en' || value === 'es'
+
 function getInitialLocale(): Locale {
+  // ?lang=es en la URL tiene prioridad (enlaces directos y generación del PDF)
+  const fromUrl = new URLSearchParams(window.location.search).get('lang')
+  if (isLocale(fromUrl)) return fromUrl
+
   try {
     const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored === 'en' || stored === 'es') return stored
+    if (isLocale(stored)) return stored
   } catch {
     // localStorage no disponible: seguimos con el idioma del navegador
   }

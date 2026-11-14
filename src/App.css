@@ -160,66 +160,55 @@
   transition: color 0.2s ease;
 }
 
-/* Selector de idioma (dropdown) */
-.topbar__lang {
+/* ------------------------------------------------------------------
+   Dropdown genérico (src/components/ui/Dropdown.tsx)
+   ------------------------------------------------------------------ */
+.dropdown {
   position: relative;
-  margin-left: 4px;
+  display: inline-flex;
 }
 
-.topbar__lang-trigger {
+.dropdown__trigger {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  min-height: 30px;
-  padding: 6px 12px 6px 14px;
-  border: 2px solid var(--green-ink);
-  border-radius: 999px;
-  background: transparent;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: 0.08em;
-  color: var(--green-ink);
+  gap: 8px;
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.topbar__lang:hover .topbar__lang-trigger,
-.topbar__lang.is-open .topbar__lang-trigger {
-  color: #dff7e3;
-  border-color: transparent;
-}
-
-.topbar__lang.is-open {
-  background-color: rgba(17, 17, 17, 0.96);
-}
-
-.topbar__lang-chevron {
+.dropdown__chevron {
   width: 12px;
   height: 12px;
+  flex-shrink: 0;
   transition: transform 0.2s ease;
 }
 
-.topbar__lang.is-open .topbar__lang-chevron {
+.dropdown.is-open .dropdown__chevron {
   transform: rotate(180deg);
 }
 
-.topbar__lang-menu {
+.dropdown__menu {
   position: absolute;
   top: calc(100% + 10px);
-  right: 0;
-  min-width: 180px;
+  z-index: 20;
+  min-width: 200px;
   padding: 6px;
   border-radius: 16px;
   background: var(--white);
   box-shadow: 0 12px 32px rgba(17, 17, 17, 0.28);
 }
 
-.topbar__lang-menu button {
+.dropdown--left .dropdown__menu {
+  left: 0;
+}
+
+.dropdown--right .dropdown__menu {
+  right: 0;
+}
+
+.dropdown__item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   padding: 10px 12px;
   border: 0;
@@ -234,28 +223,81 @@
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.topbar__lang-menu button:hover {
+.dropdown__item:hover {
   background: rgba(17, 17, 17, 0.96);
   color: #dff7e3;
 }
 
-.topbar__lang-menu button.is-selected {
+.dropdown__item.is-selected {
   font-weight: 700;
 }
 
-.topbar__lang-name {
+.dropdown__text {
+  display: flex;
   flex: 1;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.topbar__lang-code {
+.dropdown__hint {
   font-size: 11px;
+  font-weight: 400;
+  line-height: 1.3;
+  opacity: 0.85;
+}
+
+.dropdown__badge {
+  font-size: 11px;
+  font-weight: 700;
   letter-spacing: 0.08em;
 }
 
-.topbar__lang-check {
+.dropdown__check {
+  display: inline-flex;
   width: 14px;
   height: 14px;
   flex-shrink: 0;
+}
+
+.dropdown__trigger:focus-visible,
+.dropdown__item:focus-visible {
+  outline: 2px solid var(--green-ink);
+  outline-offset: 2px;
+}
+
+/* Selector de idioma del menú */
+.topbar__lang {
+  margin-left: 4px;
+}
+
+.topbar__lang .dropdown__trigger {
+  gap: 6px;
+  min-height: 30px;
+  padding: 6px 12px 6px 14px;
+  border: 2px solid var(--green-ink);
+  border-radius: 999px;
+  background: transparent;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--green-ink);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.topbar__lang:hover .dropdown__trigger,
+.topbar__lang .dropdown.is-open .dropdown__trigger {
+  color: #dff7e3;
+  border-color: transparent;
+}
+
+.topbar__lang:has(.dropdown.is-open) {
+  background-color: rgba(17, 17, 17, 0.96);
+}
+
+.topbar__lang .dropdown__menu {
+  min-width: 180px;
 }
 
 /* Al navegar con los enlaces, cada sección queda debajo de la barra fija */
@@ -265,9 +307,7 @@ header[id] {
 }
 
 .topbar__logo:focus-visible,
-.topbar__list a:focus-visible,
-.topbar__lang-trigger:focus-visible,
-.topbar__lang-menu button:focus-visible {
+.topbar__list a:focus-visible {
   outline: 2px solid var(--green-ink);
   outline-offset: 2px;
 }
@@ -606,6 +646,26 @@ header[id] {
   color: var(--black);
 }
 
+/* Botón secundario sobre el hero: solo borde, menor jerarquía que el primario.
+   Texto --black sobre el verde lima del hero: contraste AAA (~9:1). */
+.btn--outline {
+  max-width: none;
+  gap: 10px;
+  background: transparent;
+  color: var(--black);
+  border: 1.5px solid var(--black);
+  cursor: pointer;
+}
+
+.btn--outline:hover,
+.cv-download.is-open .btn--outline {
+  background: rgba(17, 17, 17, 0.1);
+}
+
+.cv-download .dropdown__menu {
+  min-width: 320px;
+}
+
 .experience-list {
   display: flex;
   flex-direction: column;
@@ -710,6 +770,45 @@ header[id] {
   color: var(--green-lime);
   font-size: 12px;
   font-family: 'Roboto Mono', monospace;
+}
+
+/* Formación y certificaciones */
+.education-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.education-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(141, 184, 74, 0.18);
+}
+
+.education-card__title {
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.education-card__detail {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.languages {
+  margin-top: 12px;
+}
+
+.languages .badges {
+  margin-top: 4px;
 }
 
 .tools-grid {
@@ -854,6 +953,38 @@ header[id] {
   box-shadow: inset 0 0 0 1px rgba(141, 184, 74, 0.08);
 }
 
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+}
+
+.contact-links a {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green-lime);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.contact-links a:hover {
+  color: var(--white);
+}
+
+.project-card__url a {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
+  color: var(--green-lime);
+}
+
+/* Solo visible en el PDF / impresión */
+.print-only {
+  display: none;
+}
+
 @media (max-width: 700px) {
   .topbar {
     display: none;
@@ -904,5 +1035,69 @@ header[id] {
 
   .project-card img {
     width: 100%;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Impresión / PDF del CV (scripts/build-cv.mjs)
+   Regla escalable: cualquier elemento con data-print="hide" no sale en el
+   PDF, y cualquiera con .print-only solo sale en el PDF. Al agregar
+   secciones o botones nuevos basta con marcarlos.
+   ------------------------------------------------------------------ */
+@page {
+  margin: 0;
+}
+
+@media print {
+  html,
+  body,
+  .portfolio-shell {
+    background: var(--black) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  [data-print='hide'] {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Sin menú fijo, el contenido no necesita el espacio reservado arriba */
+  .page-content {
+    padding-top: 40px;
+  }
+
+  .hero,
+  #contacto {
+    min-height: auto;
+  }
+
+  #contacto {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  /* Que ningún bloque se corte a la mitad si el PDF se pagina */
+  .hero,
+  .experience-item,
+  .education-card,
+  .project-card,
+  .tool-card,
+  .contact-box {
+    break-inside: avoid;
+  }
+
+  .section h2 {
+    break-after: avoid;
   }
 }

@@ -20,7 +20,14 @@ export function ProjectCard({ title, description, preview, github, behance, imag
         </div>
         <p>{description}</p>
 
-        <div className="actions actions--project">
+        {/* En el PDF los botones no sirven: se muestran las URLs como texto */}
+        {preview !== '#' ? (
+          <p className="print-only project-card__url">
+            <a href={preview}>{preview.replace(/^https?:\/\//, '')}</a>
+          </p>
+        ) : null}
+
+        <div className="actions actions--project" data-print="hide">
           <ButtonLink className="btn--secondary" href={preview} target="_blank" rel="noreferrer" variant="secondary">
             {previewLabel}
           </ButtonLink>
