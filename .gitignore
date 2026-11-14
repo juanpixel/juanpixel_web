@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# CV con datos personales (teléfono): se mantiene solo en local
+referencias/cv-*
