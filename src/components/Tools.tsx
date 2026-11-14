@@ -1,11 +1,11 @@
-import { locale, portfolioTranslations } from '../data/portfolio'
-
-const { tools } = portfolioTranslations[locale]
+import { useLocale } from '../i18n/locale-context'
 
 export function Tools() {
+  const { tools, ui } = useLocale().content
+
   return (
     <section id="tools" className="section">
-      <h2>Tools</h2>
+      <h2>{ui.toolsTitle}</h2>
       <div className="tools-grid">
         {tools.map((tool) => (
           <figure key={tool} className="tool-card">
