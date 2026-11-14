@@ -34,17 +34,26 @@
   margin: 0 auto;
   padding: 8px 12px;
   border-radius: 999px;
-  background: var(--green-deep);
-  box-shadow: 0 8px 24px rgba(12, 61, 82, 0.18);
+  /* Verde lima al 50% sobre una base clara al 80%: garantiza contraste AAA (>= 7.7:1)
+     del texto --green-ink sin importar el contenido que pase por detrás. */
+  background:
+    linear-gradient(rgba(141, 184, 74, 0.5), rgba(141, 184, 74, 0.5)),
+    rgba(244, 248, 238, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(26, 42, 10, 0.22);
 }
 
-.topbar__list li {
+.topbar__list > li {
   border-radius: 999px;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
-.topbar__list li:hover {
+.topbar__list > li:hover {
   background-color: rgba(17, 17, 17, 0.96);
+}
+
+.topbar__list > li:hover > a {
   color: #dff7e3;
 }
 
@@ -59,30 +68,115 @@
   line-height: 1;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--green-ink);
+  font-weight: 700;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+/* Selector de idioma (dropdown) */
+.topbar__lang {
+  position: relative;
+  margin-left: 4px;
+}
+
+.topbar__lang-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  padding: 6px 12px 6px 14px;
+  border: 2px solid var(--green-ink);
+  border-radius: 999px;
+  background: transparent;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: var(--green-ink);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.topbar__lang:hover .topbar__lang-trigger,
+.topbar__lang.is-open .topbar__lang-trigger {
   color: #dff7e3;
+  border-color: transparent;
+}
+
+.topbar__lang.is-open {
+  background-color: rgba(17, 17, 17, 0.96);
+}
+
+.topbar__lang-chevron {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s ease;
+}
+
+.topbar__lang.is-open .topbar__lang-chevron {
+  transform: rotate(180deg);
+}
+
+.topbar__lang-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 180px;
+  padding: 6px;
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: 0 12px 32px rgba(17, 17, 17, 0.28);
+}
+
+.topbar__lang-menu button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
+  line-height: 1.2;
+  color: var(--green-ink);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.topbar__lang-menu button:hover {
+  background: rgba(17, 17, 17, 0.96);
+  color: #dff7e3;
+}
+
+.topbar__lang-menu button.is-selected {
   font-weight: 700;
 }
 
-.topbar__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.topbar__lang-name {
+  flex: 1;
 }
 
-.topbar__icon a {
-  padding: 0 10px;
-  background: rgba(17, 17, 17, 0.9);
-  border-radius: 50%;
+.topbar__lang-code {
+  font-size: 11px;
+  letter-spacing: 0.08em;
 }
 
-.topbar__icon svg {
+.topbar__lang-check {
   width: 14px;
   height: 14px;
-  fill: #dff7e3;
+  flex-shrink: 0;
 }
 
-.topbar__list li:hover svg {
-  fill: #dff7e3;
+.topbar__list a:focus-visible,
+.topbar__lang-trigger:focus-visible,
+.topbar__lang-menu button:focus-visible {
+  outline: 2px solid var(--green-ink);
+  outline-offset: 2px;
 }
 
 .page-content {
@@ -172,10 +266,37 @@
   align-items: center;
 }
 
-.avatar-placeholder {
+/* Retrato con efecto pop-out: la tarjeta oscura es el fondo y la foto
+   (PNG transparente) se apoya en su borde inferior y sobresale por arriba. */
+.avatar {
   position: relative;
   width: 330px;
   height: 330px;
+  margin-top: 60px;
+}
+
+.avatar__photo {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: 1;
+  width: auto;
+  max-width: none;
+  height: 118%;
+  transform: translateX(-50%);
+  /* Sombra verde oscuro (--green-ink): un contorno cercano que separa la cabeza
+     del verde claro del hero y un halo amplio que le da profundidad. */
+  filter:
+    drop-shadow(0 8px 12px rgba(26, 42, 10, 0.85))
+    drop-shadow(0 28px 56px rgba(26, 42, 10, 0.75));
+  pointer-events: none;
+  user-select: none;
+}
+
+.avatar__card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
   border-radius: 30px;
   background:
     radial-gradient(circle at 35% 30%, rgba(12, 61, 82, 0.75), transparent 18%),
@@ -184,7 +305,7 @@
   box-shadow: 0 18px 40px rgba(17, 17, 17, 0.16);
 }
 
-.avatar-placeholder::before {
+.avatar__card::before {
   content: '';
   position: absolute;
   inset: 10% 10% 10% 10%;
@@ -193,7 +314,7 @@
   box-shadow: inset 0 0 35px rgba(255, 255, 255, 0.03);
 }
 
-.avatar-placeholder::after {
+.avatar__card::after {
   content: '';
   position: absolute;
   width: 120px;
@@ -556,9 +677,10 @@
     width: 220px;
   }
 
-  .avatar-placeholder {
+  .avatar {
     width: 180px;
     height: 180px;
+    margin-top: 36px;
   }
 
   .section {

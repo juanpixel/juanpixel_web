@@ -7,9 +7,10 @@ type ProjectCardProps = {
   github: string
   behance?: string
   image: string
+  previewLabel: string
 }
 
-export function ProjectCard({ title, description, preview, github, behance, image }: ProjectCardProps) {
+export function ProjectCard({ title, description, preview, github, behance, image, previewLabel }: ProjectCardProps) {
   return (
     <article className="project-card">
       <img src={image} alt={title} />
@@ -21,7 +22,7 @@ export function ProjectCard({ title, description, preview, github, behance, imag
 
         <div className="actions actions--project">
           <ButtonLink className="btn--secondary" href={preview} target="_blank" rel="noreferrer" variant="secondary">
-            Preview
+            {previewLabel}
           </ButtonLink>
 
           <div className="icon-actions">

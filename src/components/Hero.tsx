@@ -1,8 +1,9 @@
-import { locale, portfolioTranslations } from '../data/portfolio'
-
-const { hero } = portfolioTranslations[locale]
+import { useLocale } from '../i18n/locale-context'
+import portrait from '../assets/juanpixel.png'
 
 export function Hero() {
+  const { hero, ui } = useLocale().content
+
   return (
     <header id="home" className="hero">
       <aside className="hero__content">
@@ -15,7 +16,10 @@ export function Hero() {
       </aside>
 
       <figure className="hero__figure">
-        <div className="avatar-placeholder" aria-label="JuanPixel portrait" />
+        <div className="avatar">
+          <div className="avatar__card" aria-hidden="true" />
+          <img className="avatar__photo" src={portrait} alt={ui.portraitLabel} width={324} height={412} />
+        </div>
       </figure>
     </header>
   )
