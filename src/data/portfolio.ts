@@ -1,5 +1,4 @@
 export const navigation = [
-  { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Experience', href: '#experiencia' },
   { label: 'Tools', href: '#tools' },
@@ -9,7 +8,7 @@ export const navigation = [
 
 export const hero = {
   eyebrow: "Hi, I'm",
-  name: 'JuanPixel',
+  name: 'Juan Muñoz',
   role: 'Senior Product Designer | AI-Driven Design Engineer',
   cta: 'About me',
 }
@@ -137,7 +136,7 @@ export const ui = {
   projectsTitle: 'Projects',
   previewLabel: 'Preview',
   contactTitle: 'Contact',
-  portraitLabel: 'JuanPixel portrait',
+  portraitLabel: 'Portrait of Juan Muñoz',
 }
 
 export type Locale = 'en' | 'es'
@@ -165,10 +164,9 @@ export const portfolioTranslations = {
       projectsTitle: 'Proyectos',
       previewLabel: 'Ver demo',
       contactTitle: 'Contacto',
-      portraitLabel: 'Retrato de JuanPixel',
+      portraitLabel: 'Retrato de Juan Muñoz',
     },
     navigation: [
-      { label: 'Inicio', href: '#home' },
       { label: 'Sobre mí', href: '#about' },
       { label: 'Experiencia', href: '#experiencia' },
       { label: 'Herramientas', href: '#tools' },
@@ -177,7 +175,7 @@ export const portfolioTranslations = {
     ],
     hero: {
       eyebrow: 'Hola, soy',
-      name: 'JuanPixel',
+      name: 'Juan Muñoz',
       role: 'Senior Product Designer | AI-Driven Design Engineer',
       cta: 'Sobre mí',
     },

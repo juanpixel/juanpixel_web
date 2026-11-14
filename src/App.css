@@ -13,26 +13,32 @@
   padding-bottom: 24px;
 }
 
+/* ------------------------------------------------------------------
+   Menú: estado A (píldora flotante) → estado B (barra pegada arriba)
+   La clase .topbar--docked se activa desde Navbar al pasar el hero.
+   ------------------------------------------------------------------ */
 .topbar {
+  --bar-ease: cubic-bezier(0.22, 1.15, 0.36, 1); /* rebote suave al final */
+  --bar-duration: 0.95s;
+  --bar-side-padding: 32px;
+
   position: fixed;
-  top: var(--nav-gap);
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  background: transparent;
-  margin-top: 0;
+  height: calc(var(--nav-gap) + var(--nav-height));
+  overflow-x: clip; /* evita scroll horizontal durante el rebote */
+  pointer-events: none;
 }
 
-.topbar__list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin: 0 auto;
-  padding: 8px 12px;
+.topbar__bar {
+  position: absolute;
+  top: var(--nav-gap);
+  left: 50%;
+  width: var(--pill-w, 780px);
+  height: var(--nav-height);
+  transform: translateX(-50%);
   border-radius: 999px;
   /* Verde lima al 50% sobre una base clara al 80%: garantiza contraste AAA (>= 7.7:1)
      del texto --green-ink sin importar el contenido que pase por detrás. */
@@ -42,6 +48,86 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 8px 24px rgba(26, 42, 10, 0.22);
+  pointer-events: auto;
+  transition:
+    width var(--bar-duration) var(--bar-ease),
+    top var(--bar-duration) var(--bar-ease),
+    border-radius var(--bar-duration) var(--bar-ease),
+    box-shadow var(--bar-duration) ease;
+}
+
+.topbar--docked .topbar__bar {
+  top: 0;
+  width: 100%;
+  border-radius: 0;
+  box-shadow:
+    0 1px 0 rgba(26, 42, 10, 0.25),
+    0 10px 30px rgba(17, 17, 17, 0.35);
+}
+
+.topbar__logo {
+  position: absolute;
+  top: 50%;
+  left: var(--bar-side-padding);
+  font-family: 'Bungee', sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--green-ink);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translate(-24px, -50%);
+  pointer-events: none;
+  /* al volver al estado A, el logo sale rápido y sin retraso */
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.topbar--docked .topbar__logo {
+  opacity: 1;
+  transform: translate(0, -50%);
+  pointer-events: auto;
+  /* al entrar, aparece cuando la barra ya casi terminó de estirarse */
+  transition:
+    opacity 0.5s ease 0.45s,
+    transform 0.6s var(--bar-ease) 0.45s;
+}
+
+.topbar__list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: max-content;
+  transform: translate(-50%, -50%);
+  transition:
+    left var(--bar-duration) var(--bar-ease),
+    transform var(--bar-duration) var(--bar-ease);
+}
+
+.topbar--docked .topbar__list {
+  left: calc(100% - var(--bar-side-padding));
+  transform: translate(-100%, -50%);
+}
+
+/* Sin espacio para logo + enlaces: se oculta el logo (fase móvil pendiente) */
+@media (max-width: 1040px) {
+  .topbar__logo {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topbar__bar,
+  .topbar__list,
+  .topbar__logo,
+  .topbar--docked .topbar__logo {
+    transition: opacity 0.2s ease;
+  }
 }
 
 .topbar__list > li {
@@ -172,6 +258,13 @@
   flex-shrink: 0;
 }
 
+/* Al navegar con los enlaces, cada sección queda debajo de la barra fija */
+section[id],
+header[id] {
+  scroll-margin-top: calc(var(--nav-height) + 16px);
+}
+
+.topbar__logo:focus-visible,
 .topbar__list a:focus-visible,
 .topbar__lang-trigger:focus-visible,
 .topbar__lang-menu button:focus-visible {
