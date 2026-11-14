@@ -280,7 +280,7 @@ header[id] {
 
 .hero {
   position: relative;
-  min-height: 72vh;
+  min-height: min(72vh, 600px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -318,11 +318,15 @@ header[id] {
 .hero__content {
   position: relative;
   z-index: 1;
-  max-width: 540px;
+  max-width: 580px;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
+
+/* Los tamaños con vw tienen como tope el valor que alcanzan cuando el
+   contenedor (.hero-shell, máx. 1200px) llega a su ancho máximo; así el hero
+   se ve igual en cualquier pantalla de PC, sin crecer en pantalla completa. */
 
 .eyebrow {
   margin: 0;
@@ -335,15 +339,21 @@ header[id] {
 
 .hero__content h1 {
   font-family: 'Bungee', sans-serif;
-  font-size: clamp(3.2rem, 6vw, 6rem);
-  line-height: 0.9;
+  font-size: clamp(3.2rem, 6vw, 4.4rem);
+  line-height: 1; /* deja espacio a la tilde de la Ñ */
   letter-spacing: 0.02em;
   margin: 0;
   text-transform: uppercase;
 }
 
+@media (min-width: 1100px) {
+  .hero__content h1 {
+    white-space: nowrap; /* en PC el nombre siempre en una línea */
+  }
+}
+
 .hero__content h3 {
-  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
   margin: 0;
   color: var(--green-ink);
   font-family: 'MuseoModerno', sans-serif;
@@ -357,6 +367,89 @@ header[id] {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Radar: ondas que se expanden desde la tarjeta y un barrido giratorio tenue.
+   Va dentro de .avatar, antes de la tarjeta, así queda pintado detrás de ella. */
+.radar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 330px;
+  height: 330px;
+  pointer-events: none;
+  /* capa más lejana del parallax */
+  transform: translate(
+    calc(-50% + var(--px, 0) * -3px),
+    calc(-50% + var(--py, 0) * -2px)
+  );
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.radar__ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(26, 42, 10, 0.14);
+  border-radius: 50%;
+  opacity: 0;
+  animation: radar-ping 10s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+}
+
+/* hijos: 1 = barrido, 2-4 = ondas escalonadas */
+.radar__ring:nth-child(3) {
+  animation-delay: 3.33s;
+}
+
+.radar__ring:nth-child(4) {
+  animation-delay: 6.66s;
+}
+
+.radar__sweep {
+  position: absolute;
+  inset: -55%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 300deg,
+    rgba(26, 42, 10, 0.045) 360deg
+  );
+  /* se desvanece hacia afuera para que no tenga un borde marcado */
+  mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, #000 30%, transparent 70%);
+  animation: radar-sweep 16s linear infinite;
+}
+
+@keyframes radar-ping {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes radar-sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .radar {
+    display: none;
+  }
+
+  .radar,
+  .avatar__card,
+  .avatar__photo {
+    transition: none;
+  }
 }
 
 /* Retrato con efecto pop-out: la tarjeta oscura es el fondo y la foto
@@ -376,7 +469,12 @@ header[id] {
   width: auto;
   max-width: none;
   height: 118%;
-  transform: translateX(-50%);
+  /* Parallax: la foto (capa más cercana) sigue al puntero hasta 4px / 2.5px */
+  transform: translate(
+    calc(-50% + var(--px, 0) * 4px),
+    calc(var(--py, 0) * 2.5px)
+  );
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
   /* Sombra verde oscuro (--green-ink): un contorno cercano que separa la cabeza
      del verde claro del hero y un halo amplio que le da profundidad. */
   filter:
@@ -391,6 +489,9 @@ header[id] {
   inset: 0;
   overflow: hidden;
   border-radius: 30px;
+  /* Parallax: la tarjeta (capa media) se mueve un poco en sentido contrario */
+  transform: translate(calc(var(--px, 0) * -1.5px), calc(var(--py, 0) * -1px));
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
   background:
     radial-gradient(circle at 35% 30%, rgba(12, 61, 82, 0.75), transparent 18%),
     linear-gradient(135deg, #151515 0%, #24362c 42%, #0f0f0f 100%);
@@ -430,7 +531,7 @@ header[id] {
 
 .section h2 {
   font-family: 'Bungee', sans-serif;
-  font-size: clamp(2.5rem, 5vw, 6.2rem);
+  font-size: clamp(2.5rem, 5vw, 3.9rem);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.9);
